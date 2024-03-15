@@ -1,20 +1,3 @@
-# apiVersion: security.istio.io/v1beta1
-# kind: RequestAuthentication
-# metadata:
-#   name: books-request-authentication
-#   namespace:  demo
-# spec:
-#   selector:
-#     matchLabels:
-#       app: books
-    
-#   jwtRules:
-#   - issuer: "http://localhost:8080/realms/Istio-Keycloak"
-#     jwksUri: "http://keycloak-http.default.svc.cluster.local/realms/Istio-Keycloak/protocol/openid-connect/certs"
-#     #jwksUri: "http://localhost:8080/realms/Istio-Keycloak/protocol/openid-connect/certs"
-#     outputPayloadToHeader: x-jwt-payload #jwt-parsed # export parsed token as a header 
-#     forwardOriginalToken: true
-
 apiVersion: security.istio.io/v1beta1
 kind: RequestAuthentication
 metadata:
@@ -25,5 +8,5 @@ spec:
     matchLabels:
       app: books
   jwtRules:
-  - issuer: "http://54.172.107.202:30323/realms/Istio"
-    jwksUri: "http://54.172.107.202:30323/realms/Istio/protocol/openid-connect/certs"
+  - issuer: "http://3.218.128.39:30323/realms/Istio"
+    jwksUri: "http://3.218.128.39:30323/realms/Istio/protocol/openid-connect/certs"
