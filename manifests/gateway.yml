@@ -1,0 +1,48 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: service-gateway
+  namespace: demo
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - hosts:
+        - "*"
+
+      port:
+        number: 80
+        name: http
+        protocol: HTTP
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gateway-service
+  namespace: demo
+spec:
+  hosts:
+  - a59670e21b0704823b67592b625ef205-1631699758.us-east-1.elb.amazonaws.com
+  gateways:
+  - service-gateway
+  http:
+  - match:
+      - uri:
+          prefix: "/books"
+    route:
+      - destination:
+          host: my-books
+          port:
+            number: 4000
+
+  - match:
+      - uri:
+          prefix: "/users"
+    route:
+      - destination:
+          host: my-users
+          port:
+            number: 4000
+        
+---

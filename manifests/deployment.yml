@@ -1,0 +1,60 @@
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: books
+  namespace: demo
+  labels:
+    app: books
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: books
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: books
+        version: v1
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - name: books
+          image: 737971166371.dkr.ecr.us-east-1.amazonaws.com/books
+          ports:
+            - name: application
+              containerPort: 7000
+          
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: users
+  namespace: demo
+  labels:
+    app: users
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: users
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: users
+        version: v1
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - name: users
+          image: 737971166371.dkr.ecr.us-east-1.amazonaws.com/users
+          ports:
+            - name: application
+              containerPort: 5000
+          
+

@@ -1,0 +1,22 @@
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-nothing
+  namespace: demo
+spec:
+  {}
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: "book-viewer"
+  namespace: demo
+spec:
+  selector:
+    matchLabels:
+      app: books
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        methods: ["GET"]  

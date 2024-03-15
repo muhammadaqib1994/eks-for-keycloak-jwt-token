@@ -1,0 +1,37 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-books
+  namespace: demo
+  labels:
+    app: books
+    service: books
+spec:
+  type: ClusterIP
+  selector:
+    app: books
+  ports:
+    - name: http
+      protocol: TCP
+      port: 4000
+      targetPort: 7000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-users
+  namespace: demo
+  labels:
+    app: users
+    service: users
+spec:
+  type: ClusterIP
+  selector:
+    app: users
+  ports:
+    - name: http
+      protocol: TCP
+      port: 4000
+      targetPort: 5000
+
